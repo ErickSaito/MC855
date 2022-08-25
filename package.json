@@ -1,0 +1,14 @@
+{
+  "name": "weather-project",
+  "version": "1.0.0",
+  "repository": "https://github.com/ErickSaito/MC855.git",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "install-server": "yarn --cwd server install",
+    "install-app": "yarn --cwd app install",
+    "install-all": "yarn install-server && yarn install-app",
+    "server": "yarn --cwd server start:dev",
+    "app": "yarn --cwd app start"
+  }
+}
