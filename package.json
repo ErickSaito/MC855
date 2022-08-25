@@ -10,5 +10,6 @@
     "install-all": "yarn install-server && yarn install-app",
     "server": "yarn --cwd server start:dev",
     "app": "yarn --cwd app start"
-  }
+  },
+  "packageManager": "yarn@3.2.3"
 }
