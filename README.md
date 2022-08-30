@@ -18,13 +18,15 @@ Tab or section for advanced data:
 Key points:
 - Build from the ground up with internationalization and theming mode support (no need to have multiple themes for MVP)
 
-## Strech goals:
+## Stretch goals:
 - Detailed weather information (sunny/cloudy, hurricane, wind, umidity forecast)
 - Dark mode
 - Calendar integration:
     - Give custom recomendations based on users's calendar and appointments
+- IOS watch/sleep schedule integration
 - Trafic data integration:
     - Show day's current traffic data
     - Show recomendations based on traffic and weather data combination
     - Charge and extra upgrade tier for trafic data 
+- Alexa integration
 - Smart Watch app
