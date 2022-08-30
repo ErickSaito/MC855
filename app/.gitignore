@@ -34,7 +34,6 @@ local.properties
 # node.js
 #
 node_modules/
-.yarn/
 npm-debug.log
 yarn-error.log
 
@@ -78,9 +77,6 @@ buck-out/
 
 # if you are NOT using Zero-installs, then:
 # comment the following lines
-!.yarn/cache
-
-# and uncomment the following lines
-# .pnp.*
+# !.yarn/cache
 
 # End of https://www.toptal.com/developers/gitignore/api/yarn
