@@ -18,7 +18,7 @@ Tab or section for advanced data:
 Key points:
 - Build from the ground up with internationalization and theming mode support (no need to have multiple themes for MVP)
 
-### Strech goals:
+## Strech goals:
 - Detailed weather information (sunny/cloudy, hurricane, wind, umidity forecast)
 - Dark mode
 - Calendar integration:
