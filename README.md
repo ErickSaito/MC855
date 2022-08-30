@@ -1,7 +1,5 @@
 # MC855 - Weather App
 
-Figma project: https://www.figma.com/file/6ESlaxjQcdBUDXjwLAK1s2/Design-Document?node-id=0%3A1
-
 ## Product Definition:
 Weather app that notifies user on the day's weather conditions (rain/UV/temperature) on the current location and on configured locations (work, home, etc...).
 
