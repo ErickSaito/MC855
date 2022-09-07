@@ -5,4 +5,4 @@ COPY . .
 
 CMD ["node", "dist/main.js"]
 
-EXPOSE 3030
+EXPOSE 3000
