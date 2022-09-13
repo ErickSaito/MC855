@@ -11,10 +11,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
-    "baseUrl": ".",
-    "paths": {
-      "@app/*": ["src/*"]
-    }
+    "baseUrl": "."
   },
   "exclude": [
     "node_modules",
