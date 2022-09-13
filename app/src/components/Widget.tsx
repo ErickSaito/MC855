@@ -1,8 +1,12 @@
 import React, { PropsWithChildren } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 
 const Widget: React.FC<PropsWithChildren<{}>> = () => {
-  return <View></View>;
+  return (
+    <View>
+      <Text>asdasd</Text>
+    </View>
+  );
 };
 
 export default Widget;
