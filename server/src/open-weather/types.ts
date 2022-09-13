@@ -1,4 +1,4 @@
-export interface IOpenWeatherReq {
+export interface OpenWeatherRequest {
   latitude: number;
   longitude: number;
   exclude?: ExcludeWeatherData[];
