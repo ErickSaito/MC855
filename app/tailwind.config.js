@@ -7,6 +7,13 @@ module.exports = {
   theme: {
     extend: {
       colors,
+      width: {
+        '1/4': '25%',
+        half: '50%',
+        '3/4': '75%',
+        full: '100%',
+        350: '350px',
+      },
     },
   },
   plugins: [],
