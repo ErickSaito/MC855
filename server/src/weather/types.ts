@@ -1,5 +1,5 @@
 export interface GetWeatherDTO {
-  latitute: number;
+  latitude: number;
   longitude: number;
 }
 
