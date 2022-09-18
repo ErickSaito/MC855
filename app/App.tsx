@@ -1,24 +1,46 @@
-import { useColorScheme } from 'nativewind';
 import React from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
-
+import { Platform, SafeAreaView, StatusBar, StyleSheet, ScrollView, View } from 'react-native';
 import Header from './src/components/Header';
 import HomeScreen from './src/screens/HomeScreen';
+import Background from './src/components/Background';
 
-// NativeWindStyleSheet.setColorScheme('dark');
-
+const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+    borderBottomWidth: 0, // removes the border on the bottom
+    bottom: 0
+  },
+});
 const App = () => {
-  const { colorScheme } = useColorScheme();
-
-  const isDarkMode = colorScheme === 'dark';
-
-  return (
-    <SafeAreaView className="flex-1">
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Header />
-      <HomeScreen />
-    </SafeAreaView>
-  );
+  if (Platform.OS === 'android')
+    return (
+      <View style={styles.view}>
+        <StatusBar
+          backgroundColor="transparent"
+          translucent={true}
+        />
+        <Background>
+          <Header />
+          <HomeScreen />
+        </Background>
+      </View>
+    );
+  else
+    return (
+      <View style={styles.view}>
+        <Background>
+          <SafeAreaView className="flex-1">
+            <StatusBar
+              barStyle={'light-content'}
+              backgroundColor="transparent"
+              translucent={true}
+            />
+            <Header />
+            <HomeScreen />
+          </SafeAreaView >
+        </Background>
+      </View>
+    );
 };
 
 export default App;
