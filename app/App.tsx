@@ -1,8 +1,11 @@
 import { useColorScheme } from 'nativewind';
 import React from 'react';
-import { SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 
+import Header from './src/components/Header';
 import HomeScreen from './src/screens/HomeScreen';
+
+// NativeWindStyleSheet.setColorScheme('dark');
 
 const App = () => {
   const { colorScheme } = useColorScheme();
@@ -10,11 +13,10 @@ const App = () => {
   const isDarkMode = colorScheme === 'dark';
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1">
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <HomeScreen />
-      </ScrollView>
+      <Header />
+      <HomeScreen />
     </SafeAreaView>
   );
 };
