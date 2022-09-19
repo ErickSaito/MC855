@@ -1,5 +1,6 @@
 import React from 'react';
-import { Platform, SafeAreaView, StatusBar, StyleSheet, ScrollView, View } from 'react-native';
+import { Platform, SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
+import RNBootSplash from "react-native-bootsplash";
 import Header from './src/components/Header';
 import HomeScreen from './src/screens/HomeScreen';
 import Background from './src/components/Background';
@@ -12,6 +13,10 @@ const styles = StyleSheet.create({
   },
 });
 const App = () => {
+  setTimeout(() => {
+    RNBootSplash.hide({ fade: true });
+  }, 500);
+
   if (Platform.OS === 'android')
     return (
       <View style={styles.view}>
