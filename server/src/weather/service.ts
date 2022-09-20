@@ -12,8 +12,14 @@ export class WeatherService {
       longitude: req.longitude,
       exclude: ['minutely', 'hourly', 'daily', 'alerts'],
     });
+
+    const { uvi, feels_like, temp, humidity, rain } = currWeather.current;
     return {
-      uvi: currWeather.current.uvi,
+      uvi,
+      feels_like,
+      temp,
+      humidity,
+      is_raining: !!rain,
     };
   }
 }
