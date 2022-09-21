@@ -1,6 +1,7 @@
 export interface GetWeatherDTO {
   latitude: number;
   longitude: number;
+  next_hour?: number;
 }
 
 export interface Weather {
@@ -8,5 +9,5 @@ export interface Weather {
   temp: number;
   feels_like: number;
   humidity: number;
-  is_raining: boolean;
+  rain: boolean;
 }

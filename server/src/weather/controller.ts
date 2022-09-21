@@ -10,6 +10,11 @@ export class WeatherController {
   async currentWeather(
     @Query() getWeatherDTO: GetWeatherDTO,
   ): Promise<Weather> {
-    return await this.weatherService.getCurrent(getWeatherDTO);
+    return await this.weatherService.getCurrentWeather(getWeatherDTO);
+  }
+
+  @Get('/next')
+  async nextWeather(@Query() getWeatherDTO: GetWeatherDTO): Promise<Weather> {
+    return await this.weatherService.getNextWeather(getWeatherDTO);
   }
 }
