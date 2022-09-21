@@ -1,19 +1,10 @@
 import React, { ReactNode } from 'react';
-import { ImageBackground, StyleSheet } from 'react-native';
-import topography from '../assets/topography75.png';
-
-const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-  },
-});
+import { ImageBackground } from 'react-native';
+import topography from '../../assets/topography75.png';
 
 const Background = (props: { children: ReactNode }) => {
   return (
-    <ImageBackground
-      source={topography}
-      style={styles.image}
-      resizeMode="repeat">
+    <ImageBackground source={topography} className="flex-1" resizeMode="repeat">
       {props.children}
     </ImageBackground>
   );
