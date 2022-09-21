@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OpenWeatherAPI } from '../open-weather/api';
-import { GetWeatherDTO, Weather } from './types';
+import { DayWeather, GetWeatherDTO, Weather } from './types';
 
 @Injectable()
 export class WeatherService {
@@ -20,6 +20,25 @@ export class WeatherService {
       temp,
       humidity,
       rain: !!rain,
+    };
+  }
+
+  async getTodayWeather(req: GetWeatherDTO): Promise<DayWeather> {
+    const { latitude, longitude } = req;
+    const dailyWeather = await this.openWeatherAPI.getWeather({
+      latitude,
+      longitude,
+      exclude: ['minutely', 'current', 'hourly', 'alerts'],
+    });
+
+    const { feels_like, temp, uvi, humidity, rain } = dailyWeather.daily[0];
+
+    return {
+      feels_like,
+      temp,
+      uvi,
+      humidity,
+      rain: rain > 5,
     };
   }
 

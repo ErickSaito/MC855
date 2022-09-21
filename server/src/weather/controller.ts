@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { WeatherService } from './service';
-import { GetWeatherDTO, Weather } from './types';
+import { DayWeather, GetWeatherDTO, Weather } from './types';
 
 @Controller('weather')
 export class WeatherController {
@@ -16,5 +16,12 @@ export class WeatherController {
   @Get('/next')
   async nextWeather(@Query() getWeatherDTO: GetWeatherDTO): Promise<Weather> {
     return await this.weatherService.getNextWeather(getWeatherDTO);
+  }
+
+  @Get('/today')
+  async todayWeather(
+    @Query() getWeatherDTO: GetWeatherDTO,
+  ): Promise<DayWeather> {
+    return await this.weatherService.getTodayWeather(getWeatherDTO);
   }
 }
