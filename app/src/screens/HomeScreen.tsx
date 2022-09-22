@@ -36,7 +36,9 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
       <View className="my-1">
         <Widget>
           <View>
-            <Text className="text-center">{item.sentence}</Text>
+            <Text className="text-center text-white font-medium font-zenKakuNew">
+              {item.sentence}
+            </Text>
             {item.icon ? <Text>Icon</Text> : null}
           </View>
         </Widget>
@@ -59,7 +61,9 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
           <FlatList
             className="w-3/4"
             ListHeaderComponent={
-              <Text className="font-bold text-xl">Inbox</Text>
+              <Text className="font-bold text-xl text-white font-zenKakuNew">
+                Inbox
+              </Text>
             }
             data={sentences}
             keyExtractor={(_, index) => index.toString()}
@@ -70,7 +74,9 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
         <View
           className="items-center"
           style={{ width: screenDimensions.width }}>
-          <Text className="font-bold text-xl">Details</Text>
+          <Text className="font-bold text-xl text-white font-zenKakuNew">
+            Details
+          </Text>
         </View>
       </ScrollView>
     </View>

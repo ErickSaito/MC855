@@ -1,0 +1,45 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/ZenKakuGothicNew-Black.ttf",
+      "sha1": "30a5a678d8d47f4800446664642e9be177a999c0"
+    },
+    {
+      "path": "assets/fonts/ZenKakuGothicNew-Bold.ttf",
+      "sha1": "11776be09bf6c4024dffd378263822b177caee0c"
+    },
+    {
+      "path": "assets/fonts/ZenKakuGothicNew-Light.ttf",
+      "sha1": "8c08f7a3aed1c763ea4a24f5fa9be214811a0a70"
+    },
+    {
+      "path": "assets/fonts/ZenKakuGothicNew-Medium.ttf",
+      "sha1": "06b731fd512973e6416a6ef9d843bf7355eb70d3"
+    },
+    {
+      "path": "assets/fonts/ZenKakuGothicNew-Regular.ttf",
+      "sha1": "4693fbb848c23320b6585c689aeba8c85a59c796"
+    },
+    {
+      "path": "assets/fonts/ZenMaruGothic-Black.ttf",
+      "sha1": "81068b234cf9b944b2762aee3a2cc072f32219d0"
+    },
+    {
+      "path": "assets/fonts/ZenMaruGothic-Bold.ttf",
+      "sha1": "a46a4087177b39f4364a6af1ca56b377ff4c2bd9"
+    },
+    {
+      "path": "assets/fonts/ZenMaruGothic-Light.ttf",
+      "sha1": "f2588feb9ca01eecb9afcef896a70f82f182b0b3"
+    },
+    {
+      "path": "assets/fonts/ZenMaruGothic-Medium.ttf",
+      "sha1": "d473e4bc4ff00a59d72adc446548b13b1e18fab7"
+    },
+    {
+      "path": "assets/fonts/ZenMaruGothic-Regular.ttf",
+      "sha1": "40d4c0addc18e40f566adc6905398c5f6964d1f9"
+    }
+  ]
+}
