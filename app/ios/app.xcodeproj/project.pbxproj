@@ -12,6 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		166451A128D8FACA004CE2E0 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 166451A028D8FACA004CE2E0 /* BootSplash.storyboard */; };
 		264829FA81DA45709493E211 /* ZenKakuGothicNew-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4453605765864057B74C673B /* ZenKakuGothicNew-Medium.ttf */; };
 		5913DB9DD5054427AA6632B2 /* ZenMaruGothic-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2C8B91522124B0A87C5C384 /* ZenMaruGothic-Black.ttf */; };
 		6BCD3B67CC284FD29A403030 /* ZenMaruGothic-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 848F00D9F93145F19B00CB72 /* ZenMaruGothic-Medium.ttf */; };
@@ -56,6 +57,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = app/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = app/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = app/main.m; sourceTree = "<group>"; };
+		166451A028D8FACA004CE2E0 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = app/BootSplash.storyboard; sourceTree = "<group>"; };
 		17677B2F982D4D40A2CAB700 /* ZenKakuGothicNew-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ZenKakuGothicNew-Black.ttf"; path = "../assets/fonts/ZenKakuGothicNew-Black.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-app-appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-app-appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22707190877C4EE49B9482B8 /* ZenKakuGothicNew-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ZenKakuGothicNew-Bold.ttf"; path = "../assets/fonts/ZenKakuGothicNew-Bold.ttf"; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		13B07FAE1A68108700A75B9A /* app */ = {
 			isa = PBXGroup;
 			children = (
+				166451A028D8FACA004CE2E0 /* BootSplash.storyboard */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -300,6 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				166451A128D8FACA004CE2E0 /* BootSplash.storyboard in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				9648BD1D8918463BA7223AD3 /* ZenKakuGothicNew-Black.ttf in Resources */,

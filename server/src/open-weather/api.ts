@@ -1,22 +1,18 @@
-import Axios from 'axios';
-import { OPEN_WEATHER_API_KEY, OPEN_WEATHER_URL } from '../config/config';
+import { HttpService } from '@nestjs/axios';
+import { Injectable } from '@nestjs/common';
 import { OpenWeatherRequest, OpenWeatherResponse } from './types';
 
-const OpenWeatherAPI = ({ axios = Axios } = {}) => {
-  const api = { getWeather };
+@Injectable()
+export class OpenWeatherAPI {
+  constructor(private readonly httpService: HttpService) {}
 
-  async function getWeather(
-    req: OpenWeatherRequest,
-  ): Promise<OpenWeatherResponse> {
+  async getWeather(req: OpenWeatherRequest): Promise<OpenWeatherResponse> {
     const { latitude, longitude, exclude } = req;
-    const { data } = await axios.get(
-      `${OPEN_WEATHER_URL}?appid=${OPEN_WEATHER_API_KEY}&units=metric&lat=${latitude}&lon=${longitude}&exclude=${exclude.toString()}`,
+    const response = await this.httpService.axiosRef.get(
+      `${process.env.OPEN_WEATHER_URL}?appid=${
+        process.env.OPEN_WEATHER_API
+      }&units=metric&lat=${latitude}&lon=${longitude}&exclude=${exclude.toString()}`,
     );
-
-    return data;
+    return response.data;
   }
-
-  return api;
-};
-
-export default OpenWeatherAPI;
+}

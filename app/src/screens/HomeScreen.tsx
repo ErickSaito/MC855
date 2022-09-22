@@ -36,7 +36,7 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
       <View className="my-1">
         <Widget>
           <View>
-            <Text className="text-center text-white font-zenKakuNew">
+            <Text className="text-center text-white font-medium font-zenKakuNew">
               {item.sentence}
             </Text>
             {item.icon ? <Text>Icon</Text> : null}
