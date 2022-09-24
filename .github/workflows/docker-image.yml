@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Login
+      run: echo $CR_PAT | docker login ghcr.io -u erick saito --password-stdin
+    
+    - name: Build the Docker image
+      run: docker build -f server/Dockerfile -t ghcr.io/ericksaito/mc855:$(date) .
+    
+    - name: Tag
+      run: docker tag ghcr.io/ericksaito/mc855:$(date) ghcr.io/ericksaito/mc855:dev
+
+    - name: Push tag
+      run: docker push ghcr.io/ericksaito/mc855:$(date)
+    
+    - name: Push dev
+      run: docker push ghcr.io/ericksaito/mc855:dev
