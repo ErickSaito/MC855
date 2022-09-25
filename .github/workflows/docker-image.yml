@@ -13,7 +13,7 @@ jobs:
     
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%dT%h-%M-%s')"
+      run: echo "::set-output name=date::$(date +'%s')"
     
     - name: Login
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ericksaito --password-stdin
