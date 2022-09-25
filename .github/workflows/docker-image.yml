@@ -40,4 +40,4 @@ jobs:
           tags: dev
           labels: ${{ steps.meta.outputs.labels }}
           secrets: | 
-          "GIT_AUTH_TOKEN=${{ secrets.DOCKER_TOKEN }}"
+            GIT_AUTH_TOKEN=${{ secrets.DOCKER_TOKEN }}
