@@ -10,18 +10,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
+    
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+    
     - name: Login
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ericksaito --password-stdin
     
     - name: Build the Docker image
-      run: docker build -f server/Dockerfile -t ghcr.io/ericksaito/mc855:$(date)
+      run: docker build -f server/Dockerfile -t ghcr.io/ericksaito/mc855:${{ steps.date.outputs.date }} .
     
     - name: Tag
-      run: docker tag ghcr.io/ericksaito/mc855:$(date) ghcr.io/ericksaito/mc855:dev
+      run: docker tag ghcr.io/ericksaito/mc855:${{ steps.date.outputs.date }} ghcr.io/ericksaito/mc855:dev
 
     - name: Push tag
-      run: docker push ghcr.io/ericksaito/mc855:$(date)
+      run: docker push ghcr.io/ericksaito/mc855:${{ steps.date.outputs.date }}
     
     - name: Push dev
       run: docker push ghcr.io/ericksaito/mc855:dev
