@@ -2,8 +2,9 @@
 
 set -ex;
 
+IMAGE="mc855"
 CURRENT_TAG=$2
-echo $CR_PAT | docker login ghcr.io -u ericksaito --password-stdin
+MANIFEST=$(aws ecr batch-get-image --repository-name $IMAGE --image-ids imageTag=$CURRENT_TAG --query 'images[].imageManifest' --output text)
 
 if [[ "prod" = "$1" ]]; then
   TAG="latest"
@@ -16,5 +17,4 @@ fi
 
 echo "Changing tag..."
 
-docker tag ghcr.io/ericksaito/mc855:${CURRENT_TAG} ghcr.io/ericksaito/mc855:${TAG}
-docker push ghcr.io/ericksaito/mc855:${TAG}
+aws ecr put-image --repository-name "$IMAGE" --image-tag $TAG --image-manifest "$MANIFEST"
