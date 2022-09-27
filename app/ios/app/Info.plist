@@ -36,7 +36,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Your location is required to for a precise weather report for you</string>
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash.storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
