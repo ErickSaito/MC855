@@ -1,10 +1,10 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Linking, PermissionsAndroid, Platform, ToastAndroid } from "react-native";
 import Geolocation from 'react-native-geolocation-service';
 
 import appConfig from '../../app.json';
 
-export async function useGeolocationPermissions() {
-
+export async function useLocationPermissions() {
   const hasPermissionsIOS = async () => {
     const openSetting = () => {
       Linking.openSettings().catch(() => {
@@ -54,12 +54,12 @@ export async function useGeolocationPermissions() {
         return true;
       case PermissionsAndroid.RESULTS.DENIED:
         ToastAndroid.show(
-          'Location permission denied by user.',
+          'Location permission denied.',
           ToastAndroid.LONG,
         );
       case PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN:
         ToastAndroid.show(
-          'Location permission revoked by user.',
+          'Location permission revoked.',
           ToastAndroid.LONG,
         );
       default:
@@ -72,4 +72,36 @@ export async function useGeolocationPermissions() {
   } else {
     return await hasPermissionsAndroid();
   }
-} 
+}
+
+export async function useCheckLocationPermissions() {
+  if (Platform.OS === 'ios') {
+    const status = await Geolocation.requestAuthorization('whenInUse');
+    return status === 'granted';
+  } else {
+    return await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+  }
+}
+
+export function useCurrentLocation(setPosition: Function) {
+  const finished = useRef(false);
+
+  const onSuccess = (location: Geolocation.GeoPosition) => {
+    setPosition(location);
+    finished.current = true;
+  }
+  const onError = (error: Geolocation.GeoError) => console.error(error);
+
+  useEffect(() => {
+    if (!finished.current) {
+      useCheckLocationPermissions().then((locationPermitted) => {
+        if (locationPermitted)
+          Geolocation.getCurrentPosition(onSuccess, onError, {
+            enableHighAccuracy: true,
+          });
+      });
+    }
+  }, [useCheckLocationPermissions, onSuccess, onError, finished.current])
+}
