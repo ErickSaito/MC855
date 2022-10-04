@@ -1,14 +1,17 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 const Header = () => {
   return (
     <View className="items-center justify-between flex-row px-5 android:top-9">
-      <Text className="text-white font-medium font-zenMaru">Settings</Text>
+      <Image
+        source={require('../../assets/settings.png')}
+        className="w-7 h-7"
+      />
       <Text className="font-black text-xl text-white font-zenMaru">
         umbrella?
       </Text>
-      <Text className="text-white font-medium font-zenMaru">Notifications</Text>
+      <Image source={require('../../assets/inbox.png')} className="w-7 h-7" />
     </View>
   );
 };

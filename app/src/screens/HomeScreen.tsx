@@ -1,6 +1,8 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
+import type { GeoPosition } from 'react-native-geolocation-service';
 
+import { useCurrentLocation } from '../hooks/useLocation';
 import HorizontalPaginator from '../components/HorizontalPaginator';
 import Widget from '../components/Widget';
 import WeatherService from '../services/weather.service';
@@ -11,7 +13,7 @@ type Sentence = {
   icon: null;
 };
 
-const sentences: Sentence[] = [
+const sentencesMock: Sentence[] = [
   {
     sentence:
       "Today's going to rain, A LOT! \nMake sure to take your umbrella.",
@@ -25,19 +27,34 @@ const sentences: Sentence[] = [
 ];
 
 const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
+  const [sentences, setSentences] = useState<Sentence[]>(sentencesMock);
   const [weather, setWeather] = useState<Weather | null>(null);
+  const [position, setPosition] = useState<GeoPosition | null>(null);
 
-  const [error, setError] = useState<string | null>(null);
+  // change widget color
 
   useEffect(() => {
     try {
-      WeatherService.getCurrentWeather({ latitude: 0, longitude: 0 }).then(
-        res => setWeather(res),
-      );
+      if (position) {
+        WeatherService.getCurrentWeather({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        }).then(res => setWeather(res));
+      } else {
+        throw new Error();
+      }
     } catch (err) {
-      // setError(err);
+      setSentences([
+        {
+          sentence:
+            'Ops! There was an error getting the current weather! Please try again',
+          icon: null,
+        },
+      ]);
     }
-  }, []);
+  }, [position]);
+
+  useCurrentLocation((result: GeoPosition) => setPosition(result));
 
   const renderInboxItem = ({ item }: ListRenderItemInfo<Sentence>) => {
     return (

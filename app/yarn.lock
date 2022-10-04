@@ -2968,6 +2968,7 @@ __metadata:
     react-native: 0.69.4
     react-native-bootsplash: ^4.3.2
     react-native-dotenv: ^3.3.1
+    react-native-geolocation-service: ^5.3.1
     react-test-renderer: 18.0.0
     tailwindcss: ^3.1.8
     typescript: ^4.7.4
@@ -9168,6 +9169,13 @@ __metadata:
   dependencies:
     dotenv: ^16.0.0
   checksum: 3bc8ef4fc2acc930b754ff6b7ae5f5abdf38864e717bced7459902c6b3f8262db234001530ee296f40112a5db467635ba249ae64b954ec29ab84dc80c2c47312
+  languageName: node
+  linkType: hard
+
+"react-native-geolocation-service@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "react-native-geolocation-service@npm:5.3.1"
+  checksum: 9a625c9f87811933491055fd8cbd1ef46f97fbbe0262714ad1d9aa969a8900dcb4abc47e58fe162400a81bcdee79324dfcc8e631862df9a22d59ac84af9acfde
   languageName: node
   linkType: hard
 
