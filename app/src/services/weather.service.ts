@@ -10,7 +10,8 @@ export default class WeatherService {
         }&next_hour=${payload.next_hour ?? ''}`,
       );
       return res.data;
-    } catch (e) {
+    } catch (err) {
+      throw err;
       // TODO handle error and show error modal
     }
   }
@@ -23,7 +24,8 @@ export default class WeatherService {
         }&next_hour=${payload.next_hour ?? ''}`,
       );
       return res.data;
-    } catch (e) {
+    } catch (err) {
+      throw err;
       // TODO handle error and show error modal
     }
   }
@@ -36,7 +38,8 @@ export default class WeatherService {
         }&next_hour=${payload.next_hour ?? ''}`,
       );
       return res.data;
-    } catch (e) {
+    } catch (err) {
+      throw err;
       // TODO handle error and show error modal
     }
   }

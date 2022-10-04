@@ -27,10 +27,16 @@ const sentences: Sentence[] = [
 const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
   const [weather, setWeather] = useState<Weather | null>(null);
 
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    WeatherService.getCurrentWeather({ latitude: 0, longitude: 0 }).then(res =>
-      setWeather(res),
-    );
+    try {
+      WeatherService.getCurrentWeather({ latitude: 0, longitude: 0 }).then(
+        res => setWeather(res),
+      );
+    } catch (err) {
+      // setError(err);
+    }
   }, []);
 
   const renderInboxItem = ({ item }: ListRenderItemInfo<Sentence>) => {
