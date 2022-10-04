@@ -31,3 +31,5 @@ export interface DayWeather {
   uvi: number;
   rain: boolean;
 }
+
+export type RainIntesity = 'normal' | 'low' | 'high' | 'intense' | 'none';
