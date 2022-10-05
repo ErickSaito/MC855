@@ -5,31 +5,51 @@ export interface GetWeatherDTO {
 }
 
 export interface Weather {
-  uvi: number;
-  temp: number;
-  feels_like: number;
-  humidity: number;
-  rain: boolean;
-}
-
-export interface DayWeather {
-  temp: {
-    day: number;
-    min: number;
-    max: number;
-    night: number;
-    eve: number;
-    morn: number;
+  current: {
+    uvi: number;
+    temp: number;
+    feels_like: number;
+    humidity: number;
+    rain: boolean;
+    rain_intensity: RainIntesity;
   };
-  feels_like: {
-    day: number;
-    night: number;
-    eve: number;
-    morn: number;
+  eve: {
+    temp: number;
+    feels_like: number;
+    humidity: number;
+    rain: boolean;
+    rain_intensity?: RainIntesity;
+    message?: string;
   };
-  humidity: number;
-  uvi: number;
-  rain: boolean;
+  night: {
+    temp: number;
+    feels_like: number;
+    humidity: number;
+    rain: boolean;
+    rain_intensity?: RainIntesity;
+    message: string;
+  };
+  tomorrow: {
+    temp: {
+      day: number;
+      min: number;
+      max: number;
+      night: number;
+      eve: number;
+      morn: number;
+    };
+    feels_like: {
+      day: number;
+      night: number;
+      eve: number;
+      morn: number;
+    };
+    humidity: number;
+    rain: boolean;
+    uvi: number;
+    rain_intensity?: RainIntesity;
+    message?: string;
+  };
 }
 
 export type RainIntesity = 'normal' | 'low' | 'high' | 'intense' | 'none';
