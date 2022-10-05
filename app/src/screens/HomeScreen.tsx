@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 import {
   Alert,
   Dimensions,
@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useCurrentLocation, useLocationPermissions } from '../hooks/useLocation';
+import { getCurrentLocation } from '../services/Location';
 import Widget from '../components/Widget';
 
 import type { GeoPosition } from 'react-native-geolocation-service';
@@ -33,12 +33,15 @@ const sentences: Sentence[] = [
 
 const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
   const screenDimensions = Dimensions.get('screen');
-  const [position, setPosition] = useState({} as GeoPosition);
-  useCurrentLocation((result: GeoPosition) => setPosition(result));
+  const [position, setPosition] = useState<GeoPosition | null>(null);
 
   useEffect(() => {
-    if (Object.keys(position).length > 0)
+    if (position == null) {
+      getCurrentLocation((result: GeoPosition) => setPosition(result));
+    } else {
+      console.log(JSON.stringify(position));
       Alert.alert('Current location:', JSON.stringify(position));
+    }
   }, [position]);
 
   const renderInboxItem = ({ item }: ListRenderItemInfo<Sentence>) => {

@@ -1,10 +1,26 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Alert, Linking, PermissionsAndroid, Platform, ToastAndroid } from "react-native";
+import {
+  Alert,
+  Linking,
+  PermissionsAndroid,
+  Platform,
+  ToastAndroid,
+} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 
 import appConfig from '../../app.json';
 
-export async function useLocationPermissions() {
+const checkLocationPermissions = async () => {
+  if (Platform.OS === 'ios') {
+    const status = await Geolocation.requestAuthorization('whenInUse');
+    return status === 'granted' || status === 'restricted';
+  } else {
+    return await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+  }
+};
+
+export async function requestLocationPermissions() {
   const hasPermissionsIOS = async () => {
     const openSetting = () => {
       Linking.openSettings().catch(() => {
@@ -16,17 +32,26 @@ export async function useLocationPermissions() {
     switch (status) {
       case 'granted':
         return true;
+      case 'restricted':
+        return true;
       case 'denied':
         Alert.alert('Location permission denied');
+        break;
       case 'disabled':
         Alert.alert(
           `Turn on Location Services to allow "${appConfig.displayName}" to determine your location.`,
           '',
           [
             { text: 'Go to Settings', onPress: openSetting },
-            { text: "Don't Use Location", onPress: () => { } },
+            {
+              text: "Don't Use Location",
+              onPress: () => {
+                return;
+              },
+            },
           ],
         );
+        break;
       default:
         return false;
     }
@@ -53,19 +78,15 @@ export async function useLocationPermissions() {
       case PermissionsAndroid.RESULTS.GRANTED:
         return true;
       case PermissionsAndroid.RESULTS.DENIED:
-        ToastAndroid.show(
-          'Location permission denied.',
-          ToastAndroid.LONG,
-        );
+        ToastAndroid.show('Location permission denied.', ToastAndroid.LONG);
+        break;
       case PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN:
-        ToastAndroid.show(
-          'Location permission revoked.',
-          ToastAndroid.LONG,
-        );
+        ToastAndroid.show('Location permission revoked.', ToastAndroid.LONG);
+        break;
       default:
         return false;
     }
-  }
+  };
 
   if (Platform.OS === 'ios') {
     return await hasPermissionsIOS();
@@ -74,34 +95,19 @@ export async function useLocationPermissions() {
   }
 }
 
-export async function useCheckLocationPermissions() {
-  if (Platform.OS === 'ios') {
-    const status = await Geolocation.requestAuthorization('whenInUse');
-    return status === 'granted';
-  } else {
-    return await PermissionsAndroid.check(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    );
-  }
-}
-
-export function useCurrentLocation(setPosition: Function) {
-  const finished = useRef(false);
-
+export function getCurrentLocation(setPosition: Function) {
   const onSuccess = (location: Geolocation.GeoPosition) => {
     setPosition(location);
-    finished.current = true;
-  }
+  };
   const onError = (error: Geolocation.GeoError) => console.error(error);
 
-  useEffect(() => {
-    if (!finished.current) {
-      useCheckLocationPermissions().then((locationPermitted) => {
-        if (locationPermitted)
-          Geolocation.getCurrentPosition(onSuccess, onError, {
-            enableHighAccuracy: true,
-          });
+  checkLocationPermissions().then(locationPermitted => {
+    if (locationPermitted) {
+      Geolocation.getCurrentPosition(onSuccess, onError, {
+        enableHighAccuracy: true,
       });
+    } else {
+      setPosition(null);
     }
-  }, [useCheckLocationPermissions, onSuccess, onError, finished.current])
+  });
 }
