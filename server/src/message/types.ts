@@ -5,3 +5,7 @@ export interface WeatherMessage {
   message: string;
   rain_intensity: RainIntesity;
 }
+
+export interface WeatherMessageFilter {
+  rain_intesity?: RainIntesity;
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { GenericRepository } from '../generics/GenericRepository';
 import { MESSAGES } from './data';
-import { WeatherMessage } from './types';
+import { WeatherMessage, WeatherMessageFilter } from './types';
 
 @Injectable()
 export class WeatherMessageRepository
@@ -19,5 +19,17 @@ export class WeatherMessageRepository
     return await msgPromise;
   }
 
-  filter(data: object): Promise<WeatherMessage[]> {}
+  async filter(data: WeatherMessageFilter): Promise<WeatherMessage[]> {
+    const msgPromise = new Promise<WeatherMessage[]>((resolve, reject) => {
+      const messages = MESSAGES.filter(
+        (mgs) => data.rain_intesity === mgs.rain_intensity,
+      );
+      if (messages.length) {
+        resolve(messages);
+      }
+      reject(undefined);
+    });
+
+    return await msgPromise;
+  }
 }
