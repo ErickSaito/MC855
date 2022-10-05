@@ -1,23 +1,25 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Alert, Platform, SafeAreaView, StatusBar, View } from 'react-native';
+import { Platform, SafeAreaView, StatusBar, View } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 
 import Header from './src/components/Header';
 import HomeScreen from './src/screens/HomeScreen';
 import Background from './src/components/Background';
-import { useLocationPermissions } from './src/hooks/useLocation';
+import { requestLocationPermissions } from './src/services/Location';
 
 const App = () => {
-  const requestedPermissions = useRef(false);
+  const [requestedAuthorization, setRequestedAuthorization] = useState(false);
 
   useEffect(() => {
-    if (!requestedPermissions.current)
-      useLocationPermissions().then(() => {
-        requestedPermissions.current = true;
-        RNBootSplash.hide({ fade: true });
+    if (!requestedAuthorization) {
+      requestLocationPermissions().finally(() => {
+        setRequestedAuthorization(true);
       });
-  }, [requestedPermissions.current]);
+    } else {
+      RNBootSplash.hide({ fade: true });
+    }
+  }, [requestedAuthorization]);
 
   if (Platform.OS === 'android') {
     return (
