@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useRef } from 'react';
 import {
   Alert,
   Linking,
@@ -10,7 +9,18 @@ import Geolocation from 'react-native-geolocation-service';
 
 import appConfig from '../../app.json';
 
-export async function useLocationPermissions() {
+const checkLocationPermissions = async () => {
+  if (Platform.OS === 'ios') {
+    const status = await Geolocation.requestAuthorization('whenInUse');
+    return status === 'granted' || status === 'restricted';
+  } else {
+    return await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+  }
+};
+
+export async function requestLocationPermissions() {
   const hasPermissionsIOS = async () => {
     const openSetting = () => {
       Linking.openSettings().catch(() => {
@@ -22,6 +32,8 @@ export async function useLocationPermissions() {
     switch (status) {
       case 'granted':
         return true;
+      case 'restricted':
+        return true;
       case 'denied':
         Alert.alert('Location permission denied');
         break;
@@ -31,7 +43,12 @@ export async function useLocationPermissions() {
           '',
           [
             { text: 'Go to Settings', onPress: openSetting },
-            { text: "Don't Use Location", onPress: () => {} },
+            {
+              text: "Don't Use Location",
+              onPress: () => {
+                return;
+              },
+            },
           ],
         );
         break;
@@ -78,41 +95,26 @@ export async function useLocationPermissions() {
   }
 }
 
-const checkLocationPermission = async () => {
-  if (Platform.OS === 'ios') {
-    const status = await Geolocation.requestAuthorization('whenInUse');
-    return status === 'granted';
-  } else {
-    return await PermissionsAndroid.check(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    );
-  }
-};
+export function getCurrentLocation(
+  setPosition: (
+    result: Geolocation.GeoPosition | null,
+    err?: Geolocation.GeoError,
+  ) => void,
+) {
+  const onSuccess = (location: Geolocation.GeoPosition) =>
+    setPosition(location);
+  const onError = (error: Geolocation.GeoError) => setPosition(null, error);
 
-export function useCurrentLocation(setPosition: Function) {
-  const finished = useRef(false);
-
-  const onSuccess = useCallback(
-    (location: Geolocation.GeoPosition) => {
-      setPosition(location);
-      finished.current = true;
-    },
-    [setPosition],
-  );
-  const onError = useCallback(
-    (error: Geolocation.GeoError) => console.error(error),
-    [],
-  );
-
-  useEffect(() => {
-    if (!finished.current) {
-      checkLocationPermission().then(locationPermitted => {
-        if (locationPermitted) {
-          Geolocation.getCurrentPosition(onSuccess, onError, {
-            enableHighAccuracy: true,
-          });
-        }
+  checkLocationPermissions().then(locationPermitted => {
+    if (locationPermitted) {
+      Geolocation.getCurrentPosition(onSuccess, onError, {
+        enableHighAccuracy: true,
+      });
+    } else {
+      setPosition(null, {
+        code: Geolocation.PositionError.PERMISSION_DENIED,
+        message: 'Permission Denied',
       });
     }
-  }, [onSuccess, onError, finished]);
+  });
 }
