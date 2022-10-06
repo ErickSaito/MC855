@@ -5,7 +5,7 @@ export const MESSAGES: WeatherMessage[] = [
     id: '1',
     rain_intensity: 'intense',
     message:
-      'Cuidado {when}, o mundo irá cair! Leve um guarda-chuva, mas talvez precise de um barco',
+      'Did you rent a boat? Maybe could be a good idea, a river will fall from the sky {when}',
   },
   {
     id: '2',
@@ -15,8 +15,7 @@ export const MESSAGES: WeatherMessage[] = [
   {
     id: '3',
     rain_intensity: 'intense',
-    message:
-      'F*deu, espero que tenha um guarda-chuva contigo, {when} vai chover como nunca antes',
+    message: '{when}, it will be raining cats and dogs',
   },
   {
     id: '4',
@@ -61,7 +60,7 @@ export const MESSAGES: WeatherMessage[] = [
   {
     id: '12',
     rain_intensity: 'low',
-    message: 'Chuva low {when}',
+    message: 'It will just drizzling {when}, umbrella is not needed',
   },
   {
     id: '13',
@@ -71,11 +70,11 @@ export const MESSAGES: WeatherMessage[] = [
   {
     id: '14',
     rain_intensity: 'none',
-    message: 'Sem chuva {when}',
+    message: '{when} There will be not a cloud in the sky.',
   },
   {
     id: '15',
     rain_intensity: 'none',
-    message: 'Sem chuva {when}',
+    message: 'The sun will shine {when}',
   },
 ];
