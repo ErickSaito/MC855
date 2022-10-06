@@ -1,4 +1,9 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
 import type { GeoPosition } from 'react-native-geolocation-service';
 
@@ -8,51 +13,48 @@ import HorizontalPaginator from '../components/HorizontalPaginator';
 import Widget from '../components/Widget';
 import { Weather } from '../types/weather';
 
-type Sentence = {
-  sentence: string;
+type Message = {
+  message: string;
   icon: null;
   widgetColor?: string;
 };
-
-// const sentencesMock: Sentence[] = [
-//   {
-//     sentence:
-//       "Today's going to rain, A LOT! \nMake sure to take your umbrella.",
-//     icon: null,
-//   },
-//   {
-//     sentence:
-//       'The sun is going to be strong at noon. Sunscreen is recommended.',
-//     icon: null,
-//   },
-// ];
 
 const DEFAULT_ERROR_MESSAGE =
   'Ops! There was an error getting the current weather! Please try again';
 
 const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
-  const [sentences, setSentences] = useState<Sentence[]>([]);
   const [weather, setWeather] = useState<Weather | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [position, setPosition] = useState<GeoPosition | null>(null);
 
-  // change widget color
-
-  const getCurrentWeather = (pos: GeoPosition) => {
-    WeatherService.getCurrentWeather({
+  const getCurrentWeather = useCallback((pos: GeoPosition) => {
+    WeatherService.getWeather({
       latitude: pos.coords.latitude,
       longitude: pos.coords.longitude,
     })
-      .then(res => setWeather(res))
-      .catch(() => {
-        setSentences([
+      .then(res => {
+        setWeather(res);
+        if (res) {
+          setMessages([
+            { message: res.eve.message ?? '', icon: null },
+            { message: res.night.message ?? '', icon: null },
+            { message: res.tomorrow.message ?? '', icon: null },
+          ]);
+        } else {
+          setMessages([]);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        setMessages([
           {
-            sentence: DEFAULT_ERROR_MESSAGE,
+            message: DEFAULT_ERROR_MESSAGE,
             icon: null,
             widgetColor: 'gray',
           },
         ]);
       });
-  };
+  }, []);
 
   useEffect(() => {
     if (position) {
@@ -60,9 +62,9 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
     } else {
       getCurrentLocation((result, err) => {
         if (err) {
-          setSentences([
+          setMessages([
             {
-              sentence: DEFAULT_ERROR_MESSAGE,
+              message: DEFAULT_ERROR_MESSAGE,
               icon: null,
               widgetColor: 'gray',
             },
@@ -72,9 +74,9 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
         }
       });
     }
-  }, [position]);
+  }, [getCurrentWeather, position]);
 
-  const renderInboxItem = ({ item }: ListRenderItemInfo<Sentence>) => {
+  const renderInboxItem = ({ item }: ListRenderItemInfo<Message>) => {
     return (
       <View className="my-1">
         <Widget
@@ -83,7 +85,7 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
           }>
           <View>
             <Text className="text-center text-white text-base font-medium font-zenKakuNew">
-              {item.sentence}
+              {item.message}
             </Text>
             {item.icon ? <Text>Icon</Text> : null}
           </View>
@@ -103,7 +105,7 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
                 Inbox
               </Text>
             }
-            data={sentences}
+            data={messages}
             keyExtractor={(_, index) => index.toString()}
             renderItem={renderInboxItem}
             bounces={false}
