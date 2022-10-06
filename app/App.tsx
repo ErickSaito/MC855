@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-
 import { Platform, SafeAreaView, StatusBar, View } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 
+import { requestLocationPermissions } from './src/services/Location';
 import Header from './src/components/Header';
 import HomeScreen from './src/screens/HomeScreen';
 import Background from './src/components/Background';
-import { requestLocationPermissions } from './src/services/Location';
 
 const App = () => {
   const [requestedAuthorization, setRequestedAuthorization] = useState(false);
 
   useEffect(() => {
     if (!requestedAuthorization) {
-      requestLocationPermissions().finally(() => {
+      requestLocationPermissions().then(() => {
         setRequestedAuthorization(true);
       });
     } else {
