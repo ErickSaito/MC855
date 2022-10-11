@@ -11,6 +11,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
+    "typeRoots": ["./src/types"],
     "baseUrl": "."
   },
   "exclude": [

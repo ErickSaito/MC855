@@ -1,56 +1,91 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react';
-import {
-  Alert,
-  Dimensions,
-  FlatList,
-  ListRenderItemInfo,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
-import { getCurrentLocation } from '../services/Location';
-import Widget from '../components/Widget';
-
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
 import type { GeoPosition } from 'react-native-geolocation-service';
 
-type Sentence = {
-  sentence: string;
+import { getCurrentLocation } from '../services/Location';
+import WeatherService from '../services/weather.service';
+import HorizontalPaginator from '../components/HorizontalPaginator';
+import Widget from '../components/Widget';
+import { Weather } from '../types/weather';
+
+type Message = {
+  message: string;
   icon: null;
+  widgetColor?: string;
 };
 
-const sentences: Sentence[] = [
-  {
-    sentence:
-      "Today's going to rain, A LOT! \nMake sure to take your umbrella.",
-    icon: null,
-  },
-  {
-    sentence:
-      'The sun is going to be strong at noon. Sunscreen is recommended.',
-    icon: null,
-  },
-];
+const DEFAULT_ERROR_MESSAGE =
+  'Ops! There was an error getting the current weather! Please try again';
 
 const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
-  const screenDimensions = Dimensions.get('screen');
+  const [weather, setWeather] = useState<Weather | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [position, setPosition] = useState<GeoPosition | null>(null);
 
-  useEffect(() => {
-    if (position == null) {
-      getCurrentLocation((result: GeoPosition) => setPosition(result));
-    } else {
-      console.log(JSON.stringify(position));
-      Alert.alert('Current location:', JSON.stringify(position));
-    }
-  }, [position]);
+  const getCurrentWeather = useCallback((pos: GeoPosition) => {
+    WeatherService.getWeather({
+      latitude: pos.coords.latitude,
+      longitude: pos.coords.longitude,
+    })
+      .then(res => {
+        setWeather(res);
+        if (res) {
+          setMessages([
+            { message: res.eve.message ?? '', icon: null },
+            { message: res.night.message ?? '', icon: null },
+            { message: res.tomorrow.message ?? '', icon: null },
+          ]);
+        } else {
+          setMessages([]);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        setMessages([
+          {
+            message: DEFAULT_ERROR_MESSAGE,
+            icon: null,
+            widgetColor: 'gray',
+          },
+        ]);
+      });
+  }, []);
 
-  const renderInboxItem = ({ item }: ListRenderItemInfo<Sentence>) => {
+  useEffect(() => {
+    if (position) {
+      getCurrentWeather(position);
+    } else {
+      getCurrentLocation((result, err) => {
+        if (err) {
+          setMessages([
+            {
+              message: DEFAULT_ERROR_MESSAGE,
+              icon: null,
+              widgetColor: 'gray',
+            },
+          ]);
+        } else {
+          setPosition(result);
+        }
+      });
+    }
+  }, [getCurrentWeather, position]);
+
+  const renderInboxItem = ({ item }: ListRenderItemInfo<Message>) => {
     return (
       <View className="my-1">
-        <Widget>
+        <Widget
+          style={
+            item.widgetColor ? { backgroundColor: item.widgetColor } : undefined
+          }>
           <View>
-            <Text className="text-center text-white font-medium font-zenKakuNew">
-              {item.sentence}
+            <Text className="text-center text-white text-base font-medium font-zenKakuNew">
+              {item.message}
             </Text>
             {item.icon ? <Text>Icon</Text> : null}
           </View>
@@ -61,37 +96,25 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
 
   return (
     <View className="flex-1 justify-center">
-      <ScrollView
-        horizontal={true}
-        pagingEnabled
-        decelerationRate="fast"
-        disableIntervalMomentum={true}
-        className="flex-grow-0 h-3/5"
-        bounces={false}>
-        <View
-          className="items-center"
-          style={{ width: screenDimensions.width }}>
+      <HorizontalPaginator
+        items={[
           <FlatList
             className="w-3/4"
             ListHeaderComponent={
-              <Text className="font-bold text-xl text-white font-zenKakuNew">
+              <Text className="font-bold text-2xl text-white font-zenKakuNew mb-4">
                 Inbox
               </Text>
             }
-            data={sentences}
+            data={messages}
             keyExtractor={(_, index) => index.toString()}
             renderItem={renderInboxItem}
             bounces={false}
-          />
-        </View>
-        <View
-          className="items-center"
-          style={{ width: screenDimensions.width }}>
-          <Text className="font-bold text-xl text-white font-zenKakuNew">
+          />,
+          <Text className="font-bold text-2xl text-white font-zenKakuNew mb-4">
             Details
-          </Text>
-        </View>
-      </ScrollView>
+          </Text>,
+        ]}
+      />
     </View>
   );
 };

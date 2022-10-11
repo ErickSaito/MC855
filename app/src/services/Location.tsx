@@ -95,11 +95,15 @@ export async function requestLocationPermissions() {
   }
 }
 
-export function getCurrentLocation(setPosition: Function) {
-  const onSuccess = (location: Geolocation.GeoPosition) => {
+export function getCurrentLocation(
+  setPosition: (
+    result: Geolocation.GeoPosition | null,
+    err?: Geolocation.GeoError,
+  ) => void,
+) {
+  const onSuccess = (location: Geolocation.GeoPosition) =>
     setPosition(location);
-  };
-  const onError = (error: Geolocation.GeoError) => console.error(error);
+  const onError = (error: Geolocation.GeoError) => setPosition(null, error);
 
   checkLocationPermissions().then(locationPermitted => {
     if (locationPermitted) {
@@ -107,7 +111,10 @@ export function getCurrentLocation(setPosition: Function) {
         enableHighAccuracy: true,
       });
     } else {
-      setPosition(null);
+      setPosition(null, {
+        code: Geolocation.PositionError.PERMISSION_DENIED,
+        message: 'Permission Denied',
+      });
     }
   });
 }
