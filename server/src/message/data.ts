@@ -25,6 +25,6 @@ export const MESSAGES: WeatherMessage[] = [
   {
     id: '5',
     rain_intensity: 'none',
-    message: 'Have a wonrderful day, It will not rain today... i hope so',
+    message: 'Have a wonrderful day, It will not rain today.',
   },
 ];
