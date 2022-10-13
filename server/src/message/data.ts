@@ -20,11 +20,12 @@ export const MESSAGES: WeatherMessage[] = [
   {
     id: '4',
     rain_intensity: 'low',
-    message: 'It will just drizzling today, i think an umbrella is not needed',
+    message:
+      'It will just drizzling today, you can leave your umbrella at home.',
   },
   {
     id: '5',
     rain_intensity: 'none',
-    message: 'Have a wonrderful day, It will not rain today.',
+    message: 'Have a wonderful day, it will not rain today.',
   },
 ];
