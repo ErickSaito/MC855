@@ -11,9 +11,9 @@ export interface WeatherMessageFilter {
 }
 
 export const WhenWillRainText = {
-  afternoon: 'hoje à tarde',
-  night: 'hoje à noite',
-  tomorrow: 'amanha',
+  afternoon: 'in the afternoon',
+  night: 'at night',
+  morning: 'in the morning',
 };
 
-export type RainTime = 'afternoon' | 'night' | 'tomorrow';
+export type RainTime = 'afternoon' | 'night' | 'morning';
