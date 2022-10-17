@@ -6,7 +6,7 @@ const Widget: React.FC<PropsWithChildren<{ style?: StyleProp<ViewStyle> }>> = ({
   style,
 }) => {
   return (
-    <View style={style} className="bg-purple-dark rounded-2xl px-5 py-6 mb-2">
+    <View style={style} className="bg-purple-dark rounded-2xl p-4 mb-2">
       {children}
     </View>
   );
