@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export interface Location {
   latitude: number;
@@ -10,6 +10,6 @@ export class SyncDeviceDTO {
   token: string;
   @IsNotEmpty()
   location: Location;
-
+  @IsOptional()
   time?: string; // ISO 8601 format
 }
