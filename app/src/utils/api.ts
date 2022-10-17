@@ -6,6 +6,8 @@ const headers = {
   Accept: 'application/json',
 };
 
+console.log(BASE_API_URL);
+
 const api = axios.create({
   baseURL: BASE_API_URL,
   headers: headers,
