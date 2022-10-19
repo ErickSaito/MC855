@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import { WeatherService } from './service';
 import { GetWeatherDTO, Weather } from './types';
 
@@ -8,6 +8,12 @@ export class WeatherController {
 
   @Get('/')
   async getWeather(@Query() getWeatherDTO: GetWeatherDTO): Promise<Weather> {
+    const { latitude, longitude } = getWeatherDTO;
+
+    if (!latitude || !longitude) {
+      throw new BadRequestException();
+    }
+
     return await this.weatherService.getWeather(getWeatherDTO);
   }
 }
