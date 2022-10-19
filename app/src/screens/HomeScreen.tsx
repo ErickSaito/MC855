@@ -12,7 +12,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import type { GeoPosition } from 'react-native-geolocation-service';
+import type { GeoPosition, GeoError } from 'react-native-geolocation-service';
 
 import { getCurrentLocation } from '../services/Location';
 import WeatherService from '../services/weather.service';
@@ -67,10 +67,16 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
   useEffect(() => {
     if (position) {
       getCurrentWeather(position);
+      syncDeviceToken(); // Sync Device Token when location is found
     } else {
-      getCurrentLocation((result, err) =>
-        err ? setMessages([DEFAULT_ERROR_MESSAGE]) : setPosition(result),
-      );
+      const callback = (result: GeoPosition | null, err?: GeoError): void => {
+        if (err) {
+          setMessages([DEFAULT_ERROR_MESSAGE]);
+        } else {
+          setPosition(result);
+        }
+      };
+      getCurrentLocation(callback);
     }
   }, [getCurrentWeather, position]);
 
@@ -114,14 +120,7 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
 
   return (
     <View className="flex-1 justify-center">
-      <HorizontalPaginator
-        items={[
-          renderInboxComponent(),
-          // <Text className="font-bold text-2xl text-white font-zenKakuNew mb-4">
-          //   Details
-          // </Text>,
-        ]}
-      />
+      <HorizontalPaginator items={[renderInboxComponent()]} />
     </View>
   );
 };
