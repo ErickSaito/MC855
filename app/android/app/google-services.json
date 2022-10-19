@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "178725258687",
+    "project_id": "mc855-umbrella",
+    "storage_bucket": "mc855-umbrella.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178725258687:android:cfe76d4b0b98fc3ba08d0a",
+        "android_client_info": {
+          "package_name": "com.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178725258687-fcb7g58qrgam803olciuv3sm69a64vbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGqtxxtOwX6QeRO2rIzRSU1X6Yj7YusFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178725258687-fcb7g58qrgam803olciuv3sm69a64vbf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "178725258687-jo374kvelso72nf40aqj3uj8p7kgpdha.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.umbrella"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,6 +16,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-firebase/app": "^16.0.0",
+    "@react-native-firebase/messaging": "^16.0.0",
     "@types/react-native-dotenv": "^0.2.0",
     "axios": "^0.27.2",
     "nativewind": "^2.0.10",
