@@ -66,7 +66,7 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
 
   useEffect(() => {
     if (position) {
-      getCurrentWeather(position).catch(() => {});
+      getCurrentWeather(position);
     } else {
       getCurrentLocation((result, err) =>
         err ? setMessages([DEFAULT_ERROR_MESSAGE]) : setPosition(result),
