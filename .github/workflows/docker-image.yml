@@ -2,6 +2,8 @@ name: Deploy to ECR
 
 on:
   push:
+    paths:
+      - server/**
     branches: ["main", "dev"]
 
 jobs:
@@ -12,6 +14,14 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+
+      - name: Install
+        id: install
+        run: npm install
+
+      - name: Build
+        id: build
+        run: npm run build
 
       - name: Extract branch name
         shell: bash
