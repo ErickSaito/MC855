@@ -10,7 +10,7 @@ export default class DeviceService {
      */
 
     try {
-      const res = await api.post('/device/sync', payload);
+      const res = await api.post('/device/sync');
       return res.data;
     } catch (err) {
       throw err;

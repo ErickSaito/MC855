@@ -13,11 +13,9 @@ import {
   View,
 } from 'react-native';
 import type { GeoPosition, GeoError } from 'react-native-geolocation-service';
-import messaging from '@react-native-firebase/messaging';
 
 import { getCurrentLocation } from '../services/Location';
 import WeatherService from '../services/weather.service';
-import DeviceService from '../services/device.service';
 import HorizontalPaginator from '../components/HorizontalPaginator';
 import Widget from '../components/Widget';
 
@@ -66,26 +64,10 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
     setLoading(false);
   }, []);
 
-  const syncDeviceToken = useCallback(
-    async (token: string, pos: GeoPosition) => {
-      await DeviceService.sync({
-        location: {
-          latitude: pos.coords.latitude,
-          longitude: pos.coords.longitude,
-        },
-        token: token,
-        time: new Date().toISOString(),
-      }); // Sync Device Token when location is found
-    },
-    [],
-  );
-
   useEffect(() => {
     if (position) {
       getCurrentWeather(position);
-      messaging()
-        .getToken()
-        .then(token => syncDeviceToken(token, position));
+      syncDeviceToken(); // Sync Device Token when location is found
     } else {
       const callback = (result: GeoPosition | null, err?: GeoError): void => {
         if (err) {
@@ -96,14 +78,7 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
       };
       getCurrentLocation(callback);
     }
-
-    // Listen to whether the token changes
-    return messaging().onTokenRefresh(token => {
-      if (position) {
-        syncDeviceToken(token, position);
-      }
-    });
-  }, [getCurrentWeather, syncDeviceToken, position]);
+  }, [getCurrentWeather, position]);
 
   const renderInboxItem = ({ item }: ListRenderItemInfo<Message>) => {
     return (
