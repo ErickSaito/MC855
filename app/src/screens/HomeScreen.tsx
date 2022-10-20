@@ -12,10 +12,14 @@ import {
   Text,
   View,
 } from 'react-native';
-import type { GeoPosition } from 'react-native-geolocation-service';
+import type { GeoPosition, GeoError } from 'react-native-geolocation-service';
+import messaging from '@react-native-firebase/messaging';
+import dayjs from 'dayjs';
+import { getTimeZone } from 'react-native-localize';
 
 import { getCurrentLocation } from '../services/Location';
 import WeatherService from '../services/weather.service';
+import DeviceService from '../services/device.service';
 import HorizontalPaginator from '../components/HorizontalPaginator';
 import Widget from '../components/Widget';
 
@@ -64,15 +68,45 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
     setLoading(false);
   }, []);
 
+  const syncDeviceToken = useCallback(
+    async (token: string, pos: GeoPosition) => {
+      const date = dayjs().tz(getTimeZone()).format();
+      await DeviceService.sync({
+        location: {
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+        },
+        token: token,
+        time: date,
+      }); // Sync Device Token when location is found
+    },
+    [],
+  );
+
   useEffect(() => {
     if (position) {
       getCurrentWeather(position);
+      messaging()
+        .getToken()
+        .then(token => syncDeviceToken(token, position));
     } else {
-      getCurrentLocation((result, err) =>
-        err ? setMessages([DEFAULT_ERROR_MESSAGE]) : setPosition(result),
-      );
+      const callback = (result: GeoPosition | null, err?: GeoError): void => {
+        if (err) {
+          setMessages([DEFAULT_ERROR_MESSAGE]);
+        } else {
+          setPosition(result);
+        }
+      };
+      getCurrentLocation(callback);
     }
-  }, [getCurrentWeather, position]);
+
+    // Listen to whether the token changes
+    return messaging().onTokenRefresh(token => {
+      if (position) {
+        syncDeviceToken(token, position);
+      }
+    });
+  }, [getCurrentWeather, syncDeviceToken, position]);
 
   const renderInboxItem = ({ item }: ListRenderItemInfo<Message>) => {
     return (
@@ -114,14 +148,7 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
 
   return (
     <View className="flex-1 justify-center">
-      <HorizontalPaginator
-        items={[
-          renderInboxComponent(),
-          // <Text className="font-bold text-2xl text-white font-zenKakuNew mb-4">
-          //   Details
-          // </Text>,
-        ]}
-      />
+      <HorizontalPaginator items={[renderInboxComponent()]} />
     </View>
   );
 };

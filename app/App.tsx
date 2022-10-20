@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Platform, SafeAreaView, StatusBar, View } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
+import dayjs from 'dayjs';
+import tz from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 
 import { requestLocationPermissions } from './src/services/Location';
 import Header from './src/components/Header';
 import HomeScreen from './src/screens/HomeScreen';
 import Background from './src/components/Background';
+
+dayjs.extend(tz);
+dayjs.extend(utc);
 
 const App = () => {
   const [requestedAuthorization, setRequestedAuthorization] = useState(false);

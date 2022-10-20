@@ -80,3 +80,7 @@ buck-out/
 # !.yarn/cache
 
 # End of https://www.toptal.com/developers/gitignore/api/yarn
+
+# Firebase
+GoogleService-Info.plist
+google-services.json
