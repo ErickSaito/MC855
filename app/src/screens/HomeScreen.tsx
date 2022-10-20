@@ -13,9 +13,13 @@ import {
   View,
 } from 'react-native';
 import type { GeoPosition, GeoError } from 'react-native-geolocation-service';
+import messaging from '@react-native-firebase/messaging';
+import dayjs from 'dayjs';
+import { getTimeZone } from 'react-native-localize';
 
 import { getCurrentLocation } from '../services/Location';
 import WeatherService from '../services/weather.service';
+import DeviceService from '../services/device.service';
 import HorizontalPaginator from '../components/HorizontalPaginator';
 import Widget from '../components/Widget';
 
@@ -64,10 +68,27 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
     setLoading(false);
   }, []);
 
+  const syncDeviceToken = useCallback(
+    async (token: string, pos: GeoPosition) => {
+      const date = dayjs().tz(getTimeZone()).format();
+      await DeviceService.sync({
+        location: {
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+        },
+        token: token,
+        time: date,
+      }); // Sync Device Token when location is found
+    },
+    [],
+  );
+
   useEffect(() => {
     if (position) {
       getCurrentWeather(position);
-      syncDeviceToken(); // Sync Device Token when location is found
+      messaging()
+        .getToken()
+        .then(token => syncDeviceToken(token, position));
     } else {
       const callback = (result: GeoPosition | null, err?: GeoError): void => {
         if (err) {
@@ -78,7 +99,14 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
       };
       getCurrentLocation(callback);
     }
-  }, [getCurrentWeather, position]);
+
+    // Listen to whether the token changes
+    return messaging().onTokenRefresh(token => {
+      if (position) {
+        syncDeviceToken(token, position);
+      }
+    });
+  }, [getCurrentWeather, syncDeviceToken, position]);
 
   const renderInboxItem = ({ item }: ListRenderItemInfo<Message>) => {
     return (
