@@ -4,9 +4,10 @@ export interface GetWeatherDTO {
 }
 
 export interface Weather {
-  rain: boolean;
-  rain_intensity?: RainIntesity;
+  type: 'rain' | 'cold';
+  is_happening: boolean;
+  intensity?: Intesity;
   message?: string;
 }
 
-export type RainIntesity = 'normal' | 'low' | 'high' | 'intense' | 'none';
+export type Intesity = 'normal' | 'low' | 'high' | 'intense' | 'none';

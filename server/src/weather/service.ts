@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { WeatherMessageService } from '../message/service';
 import { OpenWeatherAPI } from '../open-weather/api';
-import { GetWeatherDTO, RainIntesity, Weather } from './types';
+import { GetWeatherDTO, Intesity, Weather } from './types';
 
 @Injectable()
 export class WeatherService {
@@ -10,7 +10,7 @@ export class WeatherService {
     private messageService: WeatherMessageService,
   ) {}
 
-  getRainIntensity(rain: number): RainIntesity {
+  getRainIntensity(rain: number): Intesity {
     if (!rain) {
       return 'none';
     }
@@ -53,9 +53,9 @@ export class WeatherService {
     );
 
     return {
-      rain_intensity: rainIntensity,
+      intensity: rainIntensity,
       message: dayMessage.message,
-      rain: !!rainDaily,
+      is_happening: !!rainDaily,
     };
   }
 }

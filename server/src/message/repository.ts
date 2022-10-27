@@ -22,7 +22,7 @@ export class WeatherMessageRepository
   async filter(data: WeatherMessageFilter): Promise<WeatherMessage[]> {
     const msgPromise = new Promise<WeatherMessage[]>((resolve, reject) => {
       const messages = MESSAGES.filter(
-        (mgs) => data.rain_intesity === mgs.rain_intensity,
+        (mgs) => data.intesity === mgs.intensity,
       );
       if (messages.length) {
         resolve(messages);
