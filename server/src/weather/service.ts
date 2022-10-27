@@ -53,6 +53,7 @@ export class WeatherService {
     );
 
     return {
+      type: 'rain',
       intensity: rainIntensity,
       message: dayMessage.message,
       is_happening: !!rainDaily,
