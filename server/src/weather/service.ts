@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { WeatherMessageService } from '../message/service';
 import { OpenWeatherAPI } from '../open-weather/api';
+import { OpenWeatherResponse } from '../open-weather/types';
 import { GetWeatherDTO, Intesity, Weather } from './types';
 
 @Injectable()
@@ -30,13 +31,7 @@ export class WeatherService {
     return 'intense';
   }
 
-  async getWeather(req: GetWeatherDTO): Promise<Weather> {
-    const weather = await this.openWeatherAPI.getWeather({
-      latitude: req.latitude,
-      longitude: req.longitude,
-      exclude: ['minutely', 'alerts', 'current', 'daily'],
-    });
-
+  async getRainInfomation(weather: OpenWeatherResponse): Promise<Weather> {
     const today = new Date();
     today.setHours(23, 59, 0);
 
@@ -58,5 +53,15 @@ export class WeatherService {
       message: dayMessage.message,
       is_happening: !!rainDaily,
     };
+  }
+
+  async getWeather(req: GetWeatherDTO): Promise<Weather> {
+    const weather = await this.openWeatherAPI.getWeather({
+      latitude: req.latitude,
+      longitude: req.longitude,
+      exclude: ['minutely', 'alerts', 'current', 'daily'],
+    });
+
+    return this.getRainInfomation(weather);
   }
 }
