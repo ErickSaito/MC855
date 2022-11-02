@@ -84,10 +84,13 @@ export class WeatherService {
       (w) => w.dt * 1000 < today.getTime(),
     );
 
-    const feelsLikeDaily = dayWeather
-      .filter((w) => !!w.feels_like)
-      .reduce((acc, curr) => curr.feels_like + acc, 0);
-    const feelsLikeIntensity = this.getColdIntensity(feelsLikeDaily);
+    const feelsLikeDaily = dayWeather.reduce(
+      (acc, curr) => curr.feels_like + acc,
+      0,
+    );
+    const feelsLikeIntensity = this.getColdIntensity(
+      feelsLikeDaily / dayWeather.length,
+    );
     const dayMessage = await this.messageService.getMessage({
       intesity: feelsLikeIntensity,
       type: 'cold',
