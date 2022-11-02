@@ -101,13 +101,16 @@ export class WeatherService {
     };
   }
 
-  async getWeather(req: GetWeatherDTO): Promise<Weather> {
+  async getWeather(req: GetWeatherDTO): Promise<Weather[]> {
     const weather = await this.openWeatherAPI.getWeather({
       latitude: req.latitude,
       longitude: req.longitude,
       exclude: ['minutely', 'alerts', 'current', 'daily'],
     });
 
-    return this.getRainInfomation(weather);
+    const rainInfo = await this.getRainInfomation(weather);
+    const coldInfo = await this.getColdInformation(weather);
+
+    return [rainInfo, coldInfo];
   }
 }

@@ -33,4 +33,41 @@ export const MESSAGES: WeatherMessage[] = [
     intensity: 'none',
     message: 'Have a wonderful day, it will not rain today.',
   },
+
+  {
+    id: '6',
+    type: 'cold',
+    intensity: 'none',
+    message:
+      'You should know you must find a way to build a fire to warm himself, or face death.',
+  },
+
+  {
+    id: '7',
+    type: 'cold',
+    intensity: 'low',
+    message: 'Get a coat before leaving home.',
+  },
+
+  {
+    id: '8',
+    type: 'cold',
+    intensity: 'normal',
+    message: 'Today is not too hot or too cold, the perfect temperature.',
+  },
+
+  {
+    id: '9',
+    type: 'cold',
+    intensity: 'high',
+    message:
+      'I`m sweating, but the temperature is still ok! Don`t forget to drink water.',
+  },
+
+  {
+    id: '10',
+    type: 'cold',
+    intensity: 'intense',
+    message: 'I think someone forgot the oven on. Today will be extremely hot.',
+  },
 ];
