@@ -14,7 +14,6 @@ export class DeviceService {
     schedule('0 11 * * *', async () => {
       const query = await db.collection('devices').get();
       const tokens = query.docs.map((doc) => doc.id);
-      console.log(tokens);
       msg
         .sendMulticast({
           tokens,
@@ -41,7 +40,6 @@ export class DeviceService {
   async testNotification() {
     const query = await db.collection('devices').get();
     const tokens = query.docs.map((doc) => doc.id);
-    console.log(tokens);
     msg
       .sendMulticast({
         tokens,
