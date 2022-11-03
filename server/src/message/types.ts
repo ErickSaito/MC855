@@ -1,13 +1,15 @@
-import { RainIntesity } from '../weather/types';
+import { Intensity } from '../weather/types';
 
 export interface WeatherMessage {
   id: string;
+  type: 'rain' | 'cold';
   message: string;
-  rain_intensity: RainIntesity;
+  intensity: Intensity;
 }
 
 export interface WeatherMessageFilter {
-  rain_intesity?: RainIntesity;
+  type?: 'rain' | 'cold';
+  intensity?: Intensity;
 }
 
 export const WhenWillRainText = {

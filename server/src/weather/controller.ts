@@ -7,7 +7,7 @@ export class WeatherController {
   constructor(private weatherService: WeatherService) {}
 
   @Get('/')
-  async getWeather(@Query() getWeatherDTO: GetWeatherDTO): Promise<Weather> {
+  async getWeather(@Query() getWeatherDTO: GetWeatherDTO): Promise<Weather[]> {
     const { latitude, longitude } = getWeatherDTO;
 
     if (!latitude || !longitude) {

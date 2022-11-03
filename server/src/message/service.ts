@@ -1,21 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { RainIntesity } from '../weather/types';
 import { WeatherMessageRepository } from './repository';
-import { WeatherMessage } from './types';
+import { WeatherMessage, WeatherMessageFilter } from './types';
 
 @Injectable()
 export class WeatherMessageService {
   constructor(private repository: WeatherMessageRepository) {}
 
-  async getWheatherMessage(intensity: RainIntesity): Promise<WeatherMessage> {
-    const messagesTemplate = await this.repository.filter({
-      rain_intesity: intensity,
-    });
+  async getMessage(filter: WeatherMessageFilter): Promise<WeatherMessage> {
+    const messagesTemplate = await this.repository.filter(filter);
 
     const messages = messagesTemplate.map((mgs) => ({
       id: mgs.id,
+      type: mgs.type,
       message: mgs.message,
-      rain_intensity: mgs.rain_intensity,
+      intensity: mgs.intensity,
     }));
 
     const randomIndex = Math.floor(Math.random() * messages.length);
