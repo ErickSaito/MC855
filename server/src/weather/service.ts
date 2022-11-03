@@ -64,7 +64,7 @@ export class WeatherService {
       .reduce((acc, curr) => (curr.rain?.['1h'] || 0) + acc, 0);
     const rainIntensity = this.getRainIntensity(rainDaily);
     const dayMessage = await this.messageService.getMessage({
-      intesity: rainIntensity,
+      intensity: rainIntensity,
       type: 'rain',
     });
 
@@ -92,7 +92,7 @@ export class WeatherService {
       feelsLikeDaily / dayWeather.length,
     );
     const dayMessage = await this.messageService.getMessage({
-      intesity: feelsLikeIntensity,
+      intensity: feelsLikeIntensity,
       type: 'cold',
     });
 

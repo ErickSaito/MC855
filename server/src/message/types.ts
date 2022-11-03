@@ -9,7 +9,7 @@ export interface WeatherMessage {
 
 export interface WeatherMessageFilter {
   type?: 'rain' | 'cold';
-  intesity?: Intensity;
+  intensity?: Intensity;
 }
 
 export const WhenWillRainText = {
