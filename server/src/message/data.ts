@@ -37,15 +37,14 @@ export const MESSAGES: WeatherMessage[] = [
   {
     id: '6',
     type: 'cold',
-    intensity: 'none',
+    intensity: 'intense',
     message:
-      'You should know you must find a way to build a fire to warm himself, or face death.',
+      'You know, you should find a way to build a fire to warm yourself, otherwise...',
   },
-
   {
     id: '7',
     type: 'cold',
-    intensity: 'low',
+    intensity: 'high',
     message: 'Get a coat before leaving home.',
   },
 
@@ -53,13 +52,13 @@ export const MESSAGES: WeatherMessage[] = [
     id: '8',
     type: 'cold',
     intensity: 'normal',
-    message: 'Today is not too hot or too cold, the perfect temperature.',
+    message: 'Today is not too hot nor too cold, the perfect temperature.',
   },
 
   {
     id: '9',
     type: 'cold',
-    intensity: 'high',
+    intensity: 'low',
     message:
       'I`m sweating, but the temperature is still ok! Don`t forget to drink water.',
   },
@@ -67,7 +66,8 @@ export const MESSAGES: WeatherMessage[] = [
   {
     id: '10',
     type: 'cold',
-    intensity: 'intense',
-    message: 'I think someone forgot the oven on. Today will be extremely hot.',
+    intensity: 'none',
+    message:
+      'Someone might have forgotten the oven on. Today will be extremely hot.',
   },
 ];

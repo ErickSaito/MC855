@@ -22,10 +22,15 @@ import WeatherService from '../services/weather.service';
 import DeviceService from '../services/device.service';
 import HorizontalPaginator from '../components/HorizontalPaginator';
 import Widget from '../components/Widget';
+import { Weather } from '../types/weather';
 
 import settingsIcon from '../../assets/settings.png';
 import sunnyIcon from '../../assets/sunny.png';
 import rainyIcon from '../../assets/rainy.png';
+import windIcon from '../../assets/wind.png';
+import leafIcon from '../../assets/leaf.png';
+import heatIcon from '../../assets/heat.png';
+import coldIcon from '../../assets/cold.png';
 
 type Message = {
   message: string;
@@ -40,6 +45,61 @@ const DEFAULT_ERROR_MESSAGE: Message = {
   widgetColor: 'gray',
 };
 
+const getWeatherIcon = (weather: Weather) => {
+  switch (weather.type) {
+    case 'rain': {
+      if (weather.is_happening) {
+        return <Image source={rainyIcon} className="w-7 h-7" />;
+      } else {
+        return <Image source={sunnyIcon} className="w-7 h-7" />;
+      }
+    }
+    case 'cold': {
+      if (weather.is_happening) {
+        if (weather.intensity === 'intense' || weather.intensity === 'high') {
+          return (
+            <Image
+              source={coldIcon}
+              className="w-7 h-7"
+              style={{ tintColor: 'white' }}
+            />
+          );
+        } else {
+          return (
+            <Image
+              source={windIcon}
+              className="w-7 h-7"
+              style={{ tintColor: 'white' }}
+            />
+          );
+        }
+      } else {
+        // intense is too cold, none is too hot
+        if (weather.intensity === 'none' || weather.intensity === 'low') {
+          return (
+            <Image
+              source={heatIcon}
+              className="w-7 h-7"
+              style={{ tintColor: 'white' }}
+            />
+          );
+        } else {
+          return (
+            <Image
+              source={leafIcon}
+              className="w-7 h-7"
+              style={{ tintColor: 'white' }}
+            />
+          );
+        }
+      }
+    }
+    default: {
+      return undefined;
+    }
+  }
+};
+
 const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -52,17 +112,15 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude,
       });
-      setMessages([
-        {
-          message: res.message,
-          icon: res.rain ? (
-            <Image source={rainyIcon} className="w-7 h-7" />
-          ) : (
-            <Image source={sunnyIcon} className="w-7 h-7" />
-          ),
-        },
-      ]);
-    } catch {
+      let msgs: Message[] = [];
+      res.forEach(it => {
+        msgs.push({
+          message: it.message,
+          icon: getWeatherIcon(it),
+        });
+      });
+      setMessages(msgs);
+    } catch (err) {
       setMessages([DEFAULT_ERROR_MESSAGE]);
     }
     setLoading(false);
