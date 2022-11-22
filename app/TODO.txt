@@ -1,1 +1,0 @@
-https://github.com/luggit/react-native-config/issues/170
