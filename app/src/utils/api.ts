@@ -7,7 +7,7 @@ const headers = {
 };
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: BASE_API_URL,
   headers: headers,
   timeout: 10000,
 });

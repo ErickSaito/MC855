@@ -47,12 +47,14 @@ export const MESSAGES: WeatherMessage[] = [
     intensity: 'high',
     message: 'Get a coat before leaving home.',
   },
+
   {
     id: '8',
     type: 'cold',
     intensity: 'normal',
     message: 'Today is not too hot nor too cold, the perfect temperature.',
   },
+
   {
     id: '9',
     type: 'cold',
@@ -67,36 +69,5 @@ export const MESSAGES: WeatherMessage[] = [
     intensity: 'none',
     message:
       'Someone might have forgotten the oven on. Today will be extremely hot.',
-  },
-
-  {
-    id: '11',
-    type: 'uv',
-    intensity: 'intense',
-    message: 'intense',
-  },
-  {
-    id: '12',
-    type: 'uv',
-    intensity: 'high',
-    message: 'high',
-  },
-  {
-    id: '13',
-    type: 'uv',
-    intensity: 'normal',
-    message: 'normal',
-  },
-  {
-    id: '14',
-    type: 'uv',
-    intensity: 'low',
-    message: 'low',
-  },
-  {
-    id: '15',
-    type: 'uv',
-    intensity: 'none',
-    message: 'none',
   },
 ];
