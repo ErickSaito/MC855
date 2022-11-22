@@ -4,7 +4,7 @@ export interface GetWeatherDTO {
 }
 
 export interface Weather {
-  type: 'rain' | 'cold';
+  type: 'rain' | 'cold' | 'uv';
   is_happening: boolean;
   intensity: Intensity;
   message: string;

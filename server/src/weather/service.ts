@@ -51,6 +51,22 @@ export class WeatherService {
     return 'intense';
   }
 
+  getUvIntensity(uvi: number): Intensity {
+    if (uvi <= 2) {
+      return 'low';
+    }
+
+    if (uvi <= 5) {
+      return 'normal';
+    }
+
+    if (uvi <= 7) {
+      return 'high';
+    }
+
+    return 'intense';
+  }
+
   async getRainInfomation(weather: OpenWeatherResponse): Promise<Weather> {
     const today = new Date();
     today.setHours(23, 59, 0);
@@ -104,6 +120,29 @@ export class WeatherService {
     };
   }
 
+  async getUvInformation(weather: OpenWeatherResponse): Promise<Weather> {
+    const today = new Date();
+    today.setHours(23, 59, 0);
+
+    const dayWeather = weather.hourly.filter(
+      (w) => w.dt * 1000 < today.getTime(),
+    );
+
+    const uvDaily = dayWeather.reduce((acc, curr) => curr.uvi + acc, 0);
+    const uvIntensity = this.getUvIntensity(uvDaily / dayWeather.length);
+    const dayMessage = await this.messageService.getMessage({
+      intensity: uvIntensity,
+      type: 'uv',
+    });
+
+    return {
+      type: 'uv',
+      intensity: uvIntensity,
+      message: dayMessage.message,
+      is_happening: true,
+    };
+  }
+
   async getWeather(req: GetWeatherDTO): Promise<Weather[]> {
     const weather = await this.openWeatherAPI.getWeather({
       latitude: req.latitude,
@@ -113,7 +152,8 @@ export class WeatherService {
 
     const rainInfo = await this.getRainInfomation(weather);
     const coldInfo = await this.getColdInformation(weather);
+    const uvInfo = await this.getUvInformation(weather);
 
-    return [rainInfo, coldInfo];
+    return [rainInfo, coldInfo, uvInfo];
   }
 }
