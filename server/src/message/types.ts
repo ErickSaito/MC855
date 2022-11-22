@@ -2,13 +2,13 @@ import { Intensity } from '../weather/types';
 
 export interface WeatherMessage {
   id: string;
-  type: 'rain' | 'cold' | 'uv';
+  type: 'rain' | 'cold';
   message: string;
   intensity: Intensity;
 }
 
 export interface WeatherMessageFilter {
-  type?: 'rain' | 'cold' | 'uv';
+  type?: 'rain' | 'cold';
   intensity?: Intensity;
 }
 
