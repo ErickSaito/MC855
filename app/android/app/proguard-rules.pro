@@ -9,4 +9,3 @@
 
 # Add any project specific keep options here:
 -keep class com.app.BuildConfig { *; }
--keepresources string/build_config_package
