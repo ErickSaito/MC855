@@ -102,7 +102,7 @@ const getWeatherIcon = (weather: Weather) => {
       if (weather.intensity === 'none' || weather.intensity === 'low') {
         return (
           <Image
-            source={lowUvIcon}
+            source={shieldIcon}
             className="w-7 h-7"
             style={{ tintColor: 'white' }}
           />

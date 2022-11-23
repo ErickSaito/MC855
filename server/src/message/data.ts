@@ -58,7 +58,7 @@ export const MESSAGES: WeatherMessage[] = [
     type: 'cold',
     intensity: 'low',
     message:
-      'I`m sweating, but the temperature is still ok! Don`t forget to drink water.',
+      "I'm sweating, but the temperature is still ok! Don't forget to drink water.",
   },
 
   {
@@ -91,7 +91,8 @@ export const MESSAGES: WeatherMessage[] = [
     id: '14',
     type: 'uv',
     intensity: 'low',
-    message: 'low',
+    message:
+      "Looks like it's gonna be a normal day, but you should still apply some sunscreen!",
   },
   {
     id: '15',
