@@ -17,18 +17,22 @@ jobs:
 
       - name: Install
         id: install
+        working-directory: ./server
         run: npm install
 
       - name: Build
         id: build
+        working-directory: ./server
         run: npm run build
 
       - name: Extract branch name
         shell: bash
+        working-directory: ./server
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
 
       - name: Configure AWS credentials
+        working-directory: ./server
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -36,10 +40,12 @@ jobs:
           aws-region: us-east-1
 
       - name: Login to Amazon ECR
+        working-directory: ./server
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build, tag, and push image to Amazon ECR
+        working-directory: ./server
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: mc855

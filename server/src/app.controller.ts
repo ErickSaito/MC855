@@ -6,7 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): Promise<string> {
-    return this.appService.getHelloFromFirebase();
+  getHello(): string {
+    return this.appService.getHello();
   }
 }
