@@ -73,19 +73,22 @@ export const MESSAGES: WeatherMessage[] = [
     id: '11',
     type: 'uv',
     intensity: 'intense',
-    message: 'intense',
+    message:
+      'Caution! The UV is extremely high! You should stay home under your blankets and apply A LOT sunscreen!',
   },
   {
     id: '12',
     type: 'uv',
     intensity: 'high',
-    message: 'high',
+    message:
+      'Take extra care today, try to avoid going outside and apply A LOT of sunscreen!',
   },
   {
     id: '13',
     type: 'uv',
     intensity: 'normal',
-    message: 'normal',
+    message:
+      'The UV index today is a little to high, please, apply some sunscreen!',
   },
   {
     id: '14',
@@ -98,6 +101,7 @@ export const MESSAGES: WeatherMessage[] = [
     id: '15',
     type: 'uv',
     intensity: 'none',
-    message: 'none',
+    message:
+      "Looks like it's gonna be a normal day, but you should still apply some sunscreen!",
   },
 ];

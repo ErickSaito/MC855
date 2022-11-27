@@ -33,7 +33,7 @@ import heatIcon from '../../assets/heat.png';
 import coldIcon from '../../assets/cold.png';
 import deadIcon from '../../assets/dead.png';
 import halfSunIcon from '../../assets/half-sun.png';
-import lowUvIcon from '../../assets/low-uv.png';
+import skullIcon from '../../assets/skull.png';
 import shieldIcon from '../../assets/shield.png';
 
 type Message = {
@@ -102,7 +102,7 @@ const getWeatherIcon = (weather: Weather) => {
       if (weather.intensity === 'none' || weather.intensity === 'low') {
         return (
           <Image
-            source={shieldIcon}
+            source={halfSunIcon}
             className="w-7 h-7"
             style={{ tintColor: 'white' }}
           />
@@ -111,7 +111,7 @@ const getWeatherIcon = (weather: Weather) => {
       if (weather.intensity === 'normal') {
         return (
           <Image
-            source={halfSunIcon}
+            source={shieldIcon}
             className="w-7 h-7"
             style={{ tintColor: 'white' }}
           />
@@ -120,7 +120,7 @@ const getWeatherIcon = (weather: Weather) => {
       if (weather.intensity === 'high') {
         return (
           <Image
-            source={shieldIcon}
+            source={deadIcon}
             className="w-7 h-7"
             style={{ tintColor: 'white' }}
           />
@@ -129,7 +129,7 @@ const getWeatherIcon = (weather: Weather) => {
       if (weather.intensity === 'intense') {
         return (
           <Image
-            source={deadIcon}
+            source={skullIcon}
             className="w-7 h-7"
             style={{ tintColor: 'white' }}
           />
