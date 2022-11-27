@@ -85,7 +85,6 @@ export class DeviceService {
         .set(req);
       return true;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
