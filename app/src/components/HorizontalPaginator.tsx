@@ -15,7 +15,7 @@ const HorizontalPaginator = (props: HorizontalPaginatorProps) => {
       decelerationRate="fast"
       disableIntervalMomentum={true}
       showsHorizontalScrollIndicator={false}
-      className="flex-grow-0 h-3/5"
+      className="flex-grow-0 h-4/5"
       bounces={false}>
       {props.items.map((item, index) => {
         return (

@@ -31,6 +31,10 @@ import windIcon from '../../assets/wind.png';
 import leafIcon from '../../assets/leaf.png';
 import heatIcon from '../../assets/heat.png';
 import coldIcon from '../../assets/cold.png';
+import deadIcon from '../../assets/dead.png';
+import halfSunIcon from '../../assets/half-sun.png';
+import skullIcon from '../../assets/skull.png';
+import shieldIcon from '../../assets/shield.png';
 
 type Message = {
   message: string;
@@ -94,6 +98,45 @@ const getWeatherIcon = (weather: Weather) => {
         }
       }
     }
+    case 'uv': {
+      if (weather.intensity === 'none' || weather.intensity === 'low') {
+        return (
+          <Image
+            source={halfSunIcon}
+            className="w-7 h-7"
+            style={{ tintColor: 'white' }}
+          />
+        );
+      }
+      if (weather.intensity === 'normal') {
+        return (
+          <Image
+            source={shieldIcon}
+            className="w-7 h-7"
+            style={{ tintColor: 'white' }}
+          />
+        );
+      }
+      if (weather.intensity === 'high') {
+        return (
+          <Image
+            source={deadIcon}
+            className="w-7 h-7"
+            style={{ tintColor: 'white' }}
+          />
+        );
+      }
+      if (weather.intensity === 'intense') {
+        return (
+          <Image
+            source={skullIcon}
+            className="w-7 h-7"
+            style={{ tintColor: 'white' }}
+          />
+        );
+      }
+      break;
+    }
     default: {
       return undefined;
     }
@@ -114,6 +157,7 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
       });
       let msgs: Message[] = [];
       res.forEach(it => {
+        console.log(it);
         msgs.push({
           message: it.message,
           icon: getWeatherIcon(it),
