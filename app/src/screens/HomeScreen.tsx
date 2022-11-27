@@ -157,6 +157,7 @@ const HomeScreen: React.FC<PropsWithChildren<{}>> = () => {
       });
       let msgs: Message[] = [];
       res.forEach(it => {
+        console.log(it);
         msgs.push({
           message: it.message,
           icon: getWeatherIcon(it),

@@ -2496,13 +2496,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-native-dotenv@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "@types/react-native-dotenv@npm:0.2.0"
-  checksum: 23d59b8ebd35e8fe693531f9c630f7518cb149c06694c8c35fc3b628ac8e8e26cc602cec9372447873fbbb13bf0c40bbd951ba5306c1b83b169cc3a927cb935f
-  languageName: node
-  linkType: hard
-
 "@types/react-native@npm:^0.69.5":
   version: 0.69.14
   resolution: "@types/react-native@npm:0.69.14"
@@ -3063,7 +3056,6 @@ __metadata:
     "@types/jest": ^28.1.8
     "@types/react": ^18.0.17
     "@types/react-native": ^0.69.5
-    "@types/react-native-dotenv": ^0.2.0
     "@types/react-test-renderer": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^5.29.0
     "@typescript-eslint/parser": ^5.29.0
@@ -3077,7 +3069,7 @@ __metadata:
     react: 18.0.0
     react-native: 0.69.4
     react-native-bootsplash: ^4.3.2
-    react-native-dotenv: ^3.3.1
+    react-native-config: ^1.4.11
     react-native-geolocation-service: ^5.3.1
     react-native-localize: ^2.2.4
     react-native-svg: ^13.4.0
@@ -4557,13 +4549,6 @@ __metadata:
     domelementtype: ^2.3.0
     domhandler: ^5.0.1
   checksum: 23aa7a840572d395220e173cb6263b0d028596e3950100520870a125af33ff819e6f609e1606d6f7d73bd9e7feb03bb404286e57a39063b5384c62b724d987b3
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "dotenv@npm:10.0.0"
-  checksum: f412c5fe8c24fbe313d302d2500e247ba8a1946492db405a4de4d30dd0eb186a88a43f13c958c5a7de303938949c4231c56994f97d05c4bc1f22478d631b4005
   languageName: node
   linkType: hard
 
@@ -9475,12 +9460,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-dotenv@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "react-native-dotenv@npm:3.3.1"
-  dependencies:
-    dotenv: ^10.0.0
-  checksum: 7e53bd7e3ab43479a1c304e7ff46b7ff24c9c743cc25cfae5bef0a7c7ee93a2748639e6edc337281576899216d8d9bdddfe563882fea6743d675444e8777514b
+"react-native-config@npm:^1.4.11":
+  version: 1.4.11
+  resolution: "react-native-config@npm:1.4.11"
+  peerDependencies:
+    react-native-windows: ">=0.61"
+  peerDependenciesMeta:
+    react-native-windows:
+      optional: true
+  checksum: 83528268a932d49827436730945e2c1b4458b17772f5b2aa63aeeec0bd2269cab546f3cf98dfdda97e6b8d1624b5474b028de6048783eebb31155095a7419978
   languageName: node
   linkType: hard
 

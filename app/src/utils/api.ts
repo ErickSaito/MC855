@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_API_URL } from '@env';
+import Config from 'react-native-config';
 
 const headers = {
   'Content-Type': 'application/json',
@@ -7,7 +7,7 @@ const headers = {
 };
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: Config.BASE_API_URL,
   headers: headers,
   timeout: 10000,
 });
