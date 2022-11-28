@@ -30,12 +30,6 @@ jobs:
         working-directory: ./server
         run: npm run build
 
-      - name: Extract branch name
-        shell: bash
-        working-directory: ./server
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -52,7 +46,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: mc855
-          IMAGE_TAG: ${{ steps.extract_branch.outputs.branch }}
+          IMAGE_TAG: latest
         run: |
           docker build -f Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
