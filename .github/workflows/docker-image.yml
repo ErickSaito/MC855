@@ -14,9 +14,11 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-        uses: actions/setup-node@v3
-          with:
-            node-version: 16
+      
+      - name: Setup node
+      -uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
       - name: Install
         id: install
