@@ -6,9 +6,9 @@ IMAGE="mc855"
 CURRENT_TAG=$2
 MANIFEST=$(aws ecr batch-get-image --repository-name $IMAGE --image-ids imageTag=$CURRENT_TAG --query 'images[].imageManifest' --output text)
 
-if [[ "prod" = "$1" ]]; then
+if [[ "latest" = "$1" ]]; then
   TAG="latest"
-elif [[ "homolog" = "$1" ]]; then
+elif [[ "dev" = "$1" ]]; then
   TAG="dev"
 else 
   echo "Missing env argument"
