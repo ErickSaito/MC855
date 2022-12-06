@@ -22,8 +22,8 @@
 ### Descrição do projeto:
 Link do board: https://github.com/users/ErickSaito/projects/2
 
-### Prints das telas com descrição das funcionalidades. 
-<img src="https://user-images.githubusercontent.com/8814010/204150212-322da337-f572-4791-a9ba-cc78cf57991c.png" width="50%" height="50%">
+### Tela principal do aplicativo
+<img src="https://user-images.githubusercontent.com/8814010/204150212-322da337-f572-4791-a9ba-cc78cf57991c.png" width="30%" height="30%">
 
 ### Tecnologias, ferramentas, dependências, versões. etc. 
 
